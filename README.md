@@ -1,2 +1,2 @@
 # StandAwakening
-Item Notifier
+This is the link for my stand awakening script
