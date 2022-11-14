@@ -1,0 +1,78 @@
+getgenv().items = {
+    ["AJA Mask"] = false,
+    ["Arrow"] = false,
+    ["Banknote"] = true,
+    ["Bone"] = true,
+    ["Camera"] = true,
+    ["DIO's Diary"] = false,
+    ["DIO's Skull"] = true,
+    ["Ender Pearl"] = false,
+    ["Frog"] = false,
+    ["Hell Arrow"] = false,
+    ["Ornstein's Spear"] = true,
+    ["Pot Platinum Diary"] = true,
+    ["Red Heart"] = true,
+    ["Requiem Arrow"] = false,
+    ["Rokakaka Fruit"] = false,
+    ["Samurai Diary"] = false,
+    ["Toxic Chemicals"] = false,
+    ["True Requiem Arrow"] = false,
+    ["Uncanny Key"] = true,
+    ["Uncanny Pumpkin"] = true,
+    ["Vampire Mask"] = false,
+    ["Volcanic Rock"] = false
+}
+
+local starterGui = game:GetService("StarterGui")
+local function notification(string1, string2, asset, number)
+    starterGui:SetCore("SendNotification", {
+        Title = string1,
+        Text = string2,
+        Icon = asset,
+        Duration = number
+    })
+end
+notification("Item Notifier", "Item notifier has been loaded!", "rbxasset://textures/AudioDiscovery/done.png", 5)
+while true do
+wait(2)
+getgenv().tween = true
+
+
+local plr = game:service"Players".LocalPlayer;
+local tween_s = game:service"TweenService";
+local info = TweenInfo.new(1,Enum.EasingStyle.Quad); -- Change the number to lower to speed it up and higher to slow it down.
+function tp(...)
+local tic_k = tick();
+local params = {...};
+local cframe = CFrame.new(params[1],params[2],params[3]);
+local tween,err = pcall(function()
+local tween = tween_s:Create(plr.Character["HumanoidRootPart"],info,{CFrame=cframe});
+      tween:Play();
+end)
+   if not tween then return err end
+end
+
+
+
+for i, instance in pairs(game.Workspace:GetChildren()) do
+    for item, value in pairs(getgenv().items) do
+        if item == instance.Name and value then
+          if instance:FindFirstChild("Handle") then
+            notification("Item Spawned", "Item " .. instance.Name .. " has spawned.", "rbxasset://textures/AudioDiscovery/done.png", 5)
+            print("Item " .. instance.Name .. " has spawned.") 
+            if tween == true then
+                while true do
+                wait(1)
+                if instance.Parent ~= game.Players.LocalPlayer.Character then
+                tp(instance.Handle.Position.X,instance.Handle.Position.Y,instance.Handle.Position.Z); -- Change x,y,z to the coordinates you got
+                elseif instance.Parent == game.Players.LocalPlayer.Character then
+                instance.Parent = game.Players.LocalPlayer.Backpack
+                break
+                        end
+                     end                
+                  end
+               end
+            end
+         end
+      end
+   end
