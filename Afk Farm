@@ -1,7 +1,7 @@
 getgenv().items = {
     ["AJA Mask"] = false,
     ["Arrow"] = false,
-    ["Banknote"] = true,
+    ["Banknote"] = false,
     ["Bone"] = true,
     ["Camera"] = true,
     ["DIO's Diary"] = false,
